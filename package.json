@@ -1,0 +1,25 @@
+{
+  "name": "yslider",
+  "version": "1.0.0",
+  "description": "A simple slider component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/X9X/YSlider.git"
+  },
+  "keywords": [
+    "slider"
+  ],
+  "author": "Young",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/X9X/YSlider/issues"
+  },
+  "homepage": "https://github.com/X9X/YSlider#readme",
+  "devDependencies": {
+    "webpack": "^2.2.1"
+  }
+}
