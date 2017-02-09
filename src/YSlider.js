@@ -18,7 +18,7 @@ export class YSlider {
         let container = document.createElement('div');
         container.style.cssText = 'width:' + this._option.width + 'px;height:' + this._option.height + 'px;overflow:hidden';
         let slider = document.createElement('div');
-        slider.style.cssText = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;' + 'transition:all ' + this._option.speed + ' ease;';
+        slider.style.cssText = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;transition:all ' + this._option.speed + ' ease;';
         if (this.totalSlides > 0) {
             this._option.data.forEach((src, index) => {
                 let image = document.createElement('img')
@@ -34,6 +34,7 @@ export class YSlider {
                 slider.appendChild(image)
             })
         }
+        this._slider = slider;
         this._startSlide()
         if (this._option.hoverToStop) {
             this._slider.addEventListener('mouseenter', function() {
@@ -43,7 +44,6 @@ export class YSlider {
                 this._startSlide()
             }.bind(this));
         }
-        this._slider = slider;
         container.appendChild(slider)
         this._root.appendChild(container);
     }
@@ -52,7 +52,7 @@ export class YSlider {
             data: [],
             width: 600,
             height: 450,
-            animationDuration: '.3s',
+            speed: '.3s',
             lazyLoad: false,
             animate: true,
             vertical: false,
@@ -76,12 +76,12 @@ export class YSlider {
         }.bind(this), this._option.slideInterval * 1000)
     }
     _stopSlide() {
-        this.clearInterval(this._autoPlay);
+        clearInterval(this._autoPlay);
     }
     slideTo(index) {
         this._slider.style.transform = this._option.vertical
-            ? "translateY(" + (index * this._option.height) + "px)"
-            : "translateX(" + (index * this._option.width) + "px)";
+            ? "translateY(-" + (index * this._option.height) + "px)"
+            : "translateX(-" + (index * this._option.width) + "px)";
         this.currentSlide = index;
         this.onChange && this.onChange(this.currentSlide)
         this.loadSlide();
