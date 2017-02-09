@@ -9,10 +9,10 @@ export class YSlider {
         this._option = option;
         this.currentSlide = 0;
         this.totalSlides = this._option.data.length;
-        let sliderWidth = this._option.vertical
+        let sliderWidth = !this._option.vertical
             ? this.totalSlides * this._option.width
             : this._option.width;
-        let sliderHeight = this._option.vertical
+        let sliderHeight = !this._option.vertical
             ? this._option.height
             : this.totalSlides * this._option.height;
         let container = document.createElement('div');
@@ -34,6 +34,7 @@ export class YSlider {
                 slider.appendChild(image)
             })
         }
+        this._startSlide()
         if (this._option.hoverToStop) {
             this._slider.addEventListener('mouseenter', function() {
                 this._stopSlide()
@@ -42,7 +43,9 @@ export class YSlider {
                 this._startSlide()
             }.bind(this));
         }
-        this._root.appendChild(container.appendChild(slider));
+        this._slider = slider;
+        container.appendChild(slider)
+        this._root.appendChild(container);
     }
     static defaultOpt() {
         return {
