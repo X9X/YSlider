@@ -2,11 +2,12 @@
   "name": "yslider",
   "version": "1.0.0",
   "description": "A simple slider component",
-  "main": "index.js",
+  "main": "dist/YSlider.min.js",
+  "module": "src/YSlider.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.prod.config.js",
-    "dev": "echo \"Error: no script specified\" && exit 1"
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   "devDependencies": {
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
     "webpack": "^2.2.1"
   }

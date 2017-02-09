@@ -7,7 +7,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist/'),
         filename: 'YSlider.min.js',
-        library:"YSlider",
+        // library:"YSlider",
         libraryTarget: 'umd'
     },
     module: {
@@ -15,11 +15,12 @@ module.exports = {
           {test: /\.(js|jsx)$/, use: 'babel-loader'}
         ]
     },
-    plugins:[
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        })
-    ]
+    devtool: 'source-map',
+    // plugins:[
+    //     new webpack.optimize.UglifyJsPlugin({
+    //         compress: {
+    //             warnings: false
+    //         }
+    //     })
+    // ]
 };
