@@ -18,7 +18,7 @@ export class YSlider {
         let container = document.createElement('div');
         container.style.cssText = 'width:' + this._option.width + 'px;height:' + this._option.height + 'px;overflow:hidden';
         let slider = document.createElement('div');
-        slider.style.cssText = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;transition:all ' + this._option.speed + ' ease;';
+        slider.style.cssText = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;transition:all ' + this._option.speed + ' ease;padding:0;margin:0';
         if (this.totalSlides > 0) {
             this._option.data.forEach((src, index) => {
                 let image = document.createElement('img')
@@ -35,8 +35,9 @@ export class YSlider {
             })
         }
         this._slider = slider;
-        this._startSlide()
-        if (this._option.hoverToStop) {
+        this._option.autoPlay && this._startSlide();
+        this.loadSlide();
+        if (this._option.autoPlay && this._option.hoverToStop) {
             this._slider.addEventListener('mouseenter', function() {
                 this._stopSlide()
             }.bind(this));
@@ -65,10 +66,13 @@ export class YSlider {
     }
     loadSlide() {
         let nextSlide = this._slider.children[this.currentSlide].nextElementSibling
-        if (nextSlide && nextSlide.getAttribute('data-src')) {
-            nextSlide.src = nextSlide.getAttribute('data-src');
-            nextSlide.removeAttribute('data-src')
-        }
+        let prevSlide = this._slider.children[this.currentSlide].previousElementSibling
+        [nextSlide,prevSlide].forEach(slide => {
+            if (slide && slide.getAttribute('data-src')) {
+                slide.src = slide.getAttribute('data-src');
+                slide.removeAttribute('data-src')
+            }
+        })
     }
     _startSlide() {
         this._autoPlay = setInterval(function() {
