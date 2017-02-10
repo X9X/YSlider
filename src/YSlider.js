@@ -1,3 +1,6 @@
+/**
+ * class YSlider
+ */
 export class YSlider {
     constructor(el, opt) {
         let option = Object.assign(YSlider.defaultOpt(), opt);
@@ -56,17 +59,18 @@ export class YSlider {
             }.bind(this));
         }
         container.appendChild(slider);
-        if(this._option.showIndicator){
+        //initialize indicator
+        if (this._option.showIndicator) {
             let indicatorContainer = document.createElement('div');
             indicatorContainer.style.cssText = "position:absolute;bottom:0;height:20px;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
-            for(let i = 0;i < this.totalSlides; i++){
-                let slideTo = function (i){
+            for (let i = 0; i < this.totalSlides; i++) {
+                let slideTo = function(i) {
                     this.slideTo(i);
                 }
                 let indicator = document.createElement('div');
-                indicator.style.cssText="width:10px;height:10px;border-radius:50%;background-color:#f5f5f5;cursor:pointer;margin:0 5px;flex:0 0 10px;";
+                indicator.style.cssText = "width:10px;height:10px;border-radius:50%;background-color:#f5f5f5;cursor:pointer;margin:0 5px;flex:0 0 10px;";
                 indicator.className = this._option.indicatorClass;
-                indicator.addEventListener('click',function(){
+                indicator.addEventListener('click', function() {
                     slideTo.bind(this)(i);
                 }.bind(this));
                 indicatorContainer.appendChild(indicator)
@@ -74,7 +78,8 @@ export class YSlider {
             this._indicator = indicatorContainer;
             container.appendChild(indicatorContainer);
         }
-        if(this._option.showNav){
+        //initialize nav
+        if (this._option.showNav) {
             let top = this._option.height / 2 - 84.84;
             let margin = 20.7 + 10;
             let navCommonStyle = 'position:absolute;cursor:pointer;height:100px;width:100px;border:solid #ddd;border-width:2px 2px 0 0;top:' + top + 'px;'
@@ -82,12 +87,18 @@ export class YSlider {
             let rightNav = document.createElement('div');
             leftNav.style.cssText = navCommonStyle + 'left:' + margin + 'px;transform:rotate(-135deg);';
             rightNav.style.cssText = navCommonStyle + 'right:' + margin + 'px;transform:rotate(45deg);';
-            leftNav.addEventListener('click',function(){
-                if(this.currentSlide === 0) return false;
+            if (this._option.navClass) {
+                leftNav.className = this._option.navClass + ' prev';
+                rightNav.className = this._option.navClass + ' next';
+            }
+            leftNav.addEventListener('click', function() {
+                if (this.currentSlide === 0)
+                    return false;
                 this.slideBy(-1);
             }.bind(this));
-            rightNav.addEventListener('click',function(){
-                if(this.currentSlide === this.totalSlides - 1) return false;
+            rightNav.addEventListener('click', function() {
+                if (this.currentSlide === this.totalSlides - 1)
+                    return false;
                 this.slideBy(1);
             }.bind(this));
             this._leftNav = leftNav;
@@ -137,24 +148,34 @@ export class YSlider {
         clearInterval(this._autoPlay);
     }
     _freshIndicator(currentSlide) {
-        Array.prototype.forEach.call(this._indicator.children,(child,index) => {
-                child.style.backgroundColor = index === currentSlide ? 'gray' : 'white'
+        Array.prototype.forEach.call(this._indicator.children, (child, index) => {
+            child.style.backgroundColor = index === currentSlide
+                ? 'gray'
+                : 'white';
+            index === currentSlide
+                ? child.classList.add('active')
+                : child.classList.remove('active')
         })
     }
     _freshNav(currentSlide) {
-        this._leftNav.style.opacity = currentSlide === 0 ? '0.4' : '1';
-        this._rightNav.style.opacity = currentSlide === this.totalSlides - 1 ? '0.4' : '1';
+        this._leftNav.style.opacity = currentSlide === 0
+            ? '0.4'
+            : '1';
+        this._rightNav.style.opacity = currentSlide === this.totalSlides - 1
+            ? '0.4'
+            : '1';
     }
     slideTo(index) {
-        if(index < 0 || index > this.totalSlides - 1) return;
+        if (index < 0 || index > this.totalSlides - 1)
+            return;
         this._slider.style.transform = this._option.vertical
             ? "translateY(-" + (index * this._option.height) + "px)"
             : "translateX(-" + (index * this._option.width) + "px)";
         this.currentSlide = index;
         this.onChange && this.onChange(this.currentSlide);
         this._loadSlide();
-        this._freshIndicator(index);
-        this._freshNav(index);
+        this._option.showIndicator && this._freshIndicator(index);
+        this._option.showNav && this._freshNav(index);
     }
     slideBy(count) {
         let targetIndex = (this.currentSlide + count) % this.totalSlides;
