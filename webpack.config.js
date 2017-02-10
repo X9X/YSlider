@@ -7,7 +7,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist/'),
         filename: 'YSlider.min.js',
-        // library:"YSlider",
         libraryTarget: 'umd'
     },
     module: {

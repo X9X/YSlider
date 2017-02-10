@@ -35,8 +35,8 @@ export class YSlider {
             })
         }
         this._slider = slider;
-        this._option.autoPlay && this._startSlide();
         this.loadSlide();
+        this._option.autoPlay && this._startSlide();
         if (this._option.autoPlay && this._option.hoverToStop) {
             this._slider.addEventListener('mouseenter', function() {
                 this._stopSlide()
@@ -65,8 +65,8 @@ export class YSlider {
         }
     }
     loadSlide() {
-        let nextSlide = this._slider.children[this.currentSlide].nextElementSibling
-        let prevSlide = this._slider.children[this.currentSlide].previousElementSibling
+        let nextSlide = this._slider.children[this.currentSlide].nextElementSibling;
+        let prevSlide = this._slider.children[this.currentSlide].previousElementSibling;
         [nextSlide,prevSlide].forEach(slide => {
             if (slide && slide.getAttribute('data-src')) {
                 slide.src = slide.getAttribute('data-src');
