@@ -56,9 +56,9 @@ export class YSlider {
             }.bind(this));
         }
         container.appendChild(slider);
-        let indicatorContainer = document.createElement('div');
-        indicatorContainer.style.cssText = "position:absolute;bottom:0;height:20px;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
         if(this._option.showIndicator){
+            let indicatorContainer = document.createElement('div');
+            indicatorContainer.style.cssText = "position:absolute;bottom:0;height:20px;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
             for(let i = 0;i < this.totalSlides; i++){
                 let slideTo = function (i){
                     this.slideTo(i);
@@ -71,9 +71,30 @@ export class YSlider {
                 }.bind(this));
                 indicatorContainer.appendChild(indicator)
             }
+            this._indicator = indicatorContainer;
+            container.appendChild(indicatorContainer);
         }
-        this._indicator = indicatorContainer;
-        container.appendChild(indicatorContainer);
+        if(this._option.showNav){
+            let top = this._option.height / 2 - 84.84;
+            let margin = 20.7 + 10;
+            let navCommonStyle = 'position:absolute;cursor:pointer;height:100px;width:100px;border:solid #ddd;border-width:2px 2px 0 0;top:' + top + 'px;'
+            let leftNav = document.createElement('div');
+            let rightNav = document.createElement('div');
+            leftNav.style.cssText = navCommonStyle + 'left:' + margin + 'px;transform:rotate(-135deg);';
+            rightNav.style.cssText = navCommonStyle + 'right:' + margin + 'px;transform:rotate(45deg);';
+            leftNav.addEventListener('click',function(){
+                if(this.currentSlide === 0) return false;
+                this.slideBy(-1);
+            }.bind(this));
+            rightNav.addEventListener('click',function(){
+                if(this.currentSlide === this.totalSlides - 1) return false;
+                this.slideBy(1);
+            }.bind(this));
+            this._leftNav = leftNav;
+            this._rightNav = rightNav;
+            container.appendChild(leftNav);
+            container.appendChild(rightNav);
+        }
         this._root.appendChild(container);
         this.slideTo(0);
         this._option.autoPlay && this._startSlide();
@@ -120,6 +141,10 @@ export class YSlider {
                 child.style.backgroundColor = index === currentSlide ? 'gray' : 'white'
         })
     }
+    _freshNav(currentSlide) {
+        this._leftNav.style.opacity = currentSlide === 0 ? '0.4' : '1';
+        this._rightNav.style.opacity = currentSlide === this.totalSlides - 1 ? '0.4' : '1';
+    }
     slideTo(index) {
         if(index < 0 || index > this.totalSlides - 1) return;
         this._slider.style.transform = this._option.vertical
@@ -129,6 +154,7 @@ export class YSlider {
         this.onChange && this.onChange(this.currentSlide);
         this._loadSlide();
         this._freshIndicator(index);
+        this._freshNav(index);
     }
     slideBy(count) {
         let targetIndex = (this.currentSlide + count) % this.totalSlides;
