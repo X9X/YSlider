@@ -20,7 +20,7 @@ export class YSlider {
             : this.totalSlides * this._option.height;
         //initialize slider container basic style
         let container = document.createElement('div');
-        container.style.cssText = 'width:' + this._option.width + 'px;height:' + this._option.height + 'px;overflow:hidden';
+        container.style.cssText = 'width:' + this._option.width + 'px;height:' + this._option.height + 'px;overflow:hidden;position:relative;';
         //initialize slider basic style
         let slider = document.createElement('div');
         let sliderStyle = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;';
@@ -46,7 +46,6 @@ export class YSlider {
             })
         }
         this._slider = slider;
-        this._option.autoPlay && this._startSlide();
         //initialize slider event
         if (this._option.autoPlay && this._option.hoverToStop) {
             this._slider.addEventListener('mouseenter', function() {
@@ -57,7 +56,27 @@ export class YSlider {
             }.bind(this));
         }
         container.appendChild(slider);
+        let indicatorContainer = document.createElement('div');
+        indicatorContainer.style.cssText = "position:absolute;bottom:0;height:20px;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;";
+        if(this._option.showIndicator){
+            for(let i = 0;i < this.totalSlides; i++){
+                let slideTo = function (i){
+                    this.slideTo(i);
+                }
+                let indicator = document.createElement('div');
+                indicator.style.cssText="width:10px;height:10px;border-radius:50%;background-color:#f5f5f5;cursor:pointer;margin:0 5px;flex:0 0 10px;";
+                indicator.className = this._option.indicatorClass;
+                indicator.addEventListener('click',function(){
+                    slideTo.bind(this)(i);
+                }.bind(this));
+                indicatorContainer.appendChild(indicator)
+            }
+        }
+        this._indicator = indicatorContainer;
+        container.appendChild(indicatorContainer);
         this._root.appendChild(container);
+        this.slideTo(0);
+        this._option.autoPlay && this._startSlide();
     }
     static defaultOpt() {
         return {
@@ -73,14 +92,15 @@ export class YSlider {
             hoverToStop: false,
             showIndicator: true,
             showNav: true,
-            incatorClass: '',
+            indicatorClass: '',
             navClass: ''
         }
     }
     _loadSlide() {
-        let nextSlide = this._slider.children[this.currentSlide].nextElementSibling;
-        let prevSlide = this._slider.children[this.currentSlide].previousElementSibling;
-        [nextSlide, prevSlide].forEach(slide => {
+        let selfSlide = this._slider.children[this.currentSlide]
+        let nextSlide = selfSlide.nextElementSibling;
+        let prevSlide = selfSlide.previousElementSibling;
+        [selfSlide, nextSlide, prevSlide].forEach(slide => {
             if (slide && slide.getAttribute('data-src')) {
                 slide.src = slide.getAttribute('data-src');
                 slide.removeAttribute('data-src');
@@ -95,13 +115,20 @@ export class YSlider {
     _stopSlide() {
         clearInterval(this._autoPlay);
     }
+    _freshIndicator(currentSlide) {
+        Array.prototype.forEach.call(this._indicator.children,(child,index) => {
+                child.style.backgroundColor = index === currentSlide ? 'gray' : 'white'
+        })
+    }
     slideTo(index) {
+        if(index < 0 || index > this.totalSlides - 1) return;
         this._slider.style.transform = this._option.vertical
             ? "translateY(-" + (index * this._option.height) + "px)"
             : "translateX(-" + (index * this._option.width) + "px)";
         this.currentSlide = index;
         this.onChange && this.onChange(this.currentSlide);
         this._loadSlide();
+        this._freshIndicator(index);
     }
     slideBy(count) {
         let targetIndex = (this.currentSlide + count) % this.totalSlides;
