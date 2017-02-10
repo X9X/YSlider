@@ -1,51 +1,62 @@
 export class YSlider {
     constructor(el, opt) {
         let option = Object.assign(YSlider.defaultOpt(), opt);
+        //validate el parameter
         try {
-            this._root = document.querySelector(el)
+            this._root = document.querySelector(el);
         } catch (e) {
             throw new Error('The first parameter should be a valid css selector');
         }
         this._option = option;
+        //set default slide index to 0
         this.currentSlide = 0;
         this.totalSlides = this._option.data.length;
+        //initialize slider actual size
         let sliderWidth = !this._option.vertical
             ? this.totalSlides * this._option.width
             : this._option.width;
         let sliderHeight = !this._option.vertical
             ? this._option.height
             : this.totalSlides * this._option.height;
+        //initialize slider container basic style
         let container = document.createElement('div');
         container.style.cssText = 'width:' + this._option.width + 'px;height:' + this._option.height + 'px;overflow:hidden';
+        //initialize slider basic style
         let slider = document.createElement('div');
-        slider.style.cssText = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;transition:all ' + this._option.speed + ' ease;padding:0;margin:0';
+        let sliderStyle = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;';
+        if (this._option.animate) {
+            sliderStyle += 'transition:all ' + this._option.speed + ' ease';
+        }
+        slider.style.cssText = sliderStyle;
+        //create slides
         if (this.totalSlides > 0) {
             this._option.data.forEach((src, index) => {
-                let image = document.createElement('img')
-                image.width = this._option.width
-                image.height = this._option.height
-                if (index === 0) {
+                let image = document.createElement('img');
+                image.width = this._option.width;
+                image.height = this._option.height;
+                //load first 2 images by default
+                if (index < 2) {
                     image.src = src;
                 } else {
                     this._option.lazyLoad
                         ? image.setAttribute('data-src', src)
                         : image.setAttribute('src', src);
                 }
-                slider.appendChild(image)
+                slider.appendChild(image);
             })
         }
         this._slider = slider;
-        this.loadSlide();
         this._option.autoPlay && this._startSlide();
+        //initialize slider event
         if (this._option.autoPlay && this._option.hoverToStop) {
             this._slider.addEventListener('mouseenter', function() {
-                this._stopSlide()
+                this._stopSlide();
             }.bind(this));
             this._slider.addEventListener('mouseleave', function() {
-                this._startSlide()
+                this._startSlide();
             }.bind(this));
         }
-        container.appendChild(slider)
+        container.appendChild(slider);
         this._root.appendChild(container);
     }
     static defaultOpt() {
@@ -61,23 +72,25 @@ export class YSlider {
             slideInterval: 5,
             hoverToStop: false,
             showIndicator: true,
-            incatorClass: ''
+            showNav: true,
+            incatorClass: '',
+            navClass: ''
         }
     }
-    loadSlide() {
+    _loadSlide() {
         let nextSlide = this._slider.children[this.currentSlide].nextElementSibling;
         let prevSlide = this._slider.children[this.currentSlide].previousElementSibling;
-        [nextSlide,prevSlide].forEach(slide => {
+        [nextSlide, prevSlide].forEach(slide => {
             if (slide && slide.getAttribute('data-src')) {
                 slide.src = slide.getAttribute('data-src');
-                slide.removeAttribute('data-src')
+                slide.removeAttribute('data-src');
             }
         })
     }
     _startSlide() {
         this._autoPlay = setInterval(function() {
-            this.slideBy(1)
-        }.bind(this), this._option.slideInterval * 1000)
+            this.slideBy(1);
+        }.bind(this), this._option.slideInterval * 1000);
     }
     _stopSlide() {
         clearInterval(this._autoPlay);
@@ -87,23 +100,23 @@ export class YSlider {
             ? "translateY(-" + (index * this._option.height) + "px)"
             : "translateX(-" + (index * this._option.width) + "px)";
         this.currentSlide = index;
-        this.onChange && this.onChange(this.currentSlide)
-        this.loadSlide();
+        this.onChange && this.onChange(this.currentSlide);
+        this._loadSlide();
     }
     slideBy(count) {
         let targetIndex = (this.currentSlide + count) % this.totalSlides;
-        this.slideTo(targetIndex)
+        this.slideTo(targetIndex);
     }
     setClickCallBack(callback) {
         this.onClick = callback.bind(this);
         this._slider.addEventListener('click', function(e) {
             e.stopPropagation();
-            if (event.target.src) {
+            if (event.target !== this._slider) {
                 callback(this.currentSlide);
             }
-        }.bind(this))
+        }.bind(this));
     }
     setChangeCallBack(callback) {
-        this.onChange = callback.bind(this)
+        this.onChange = callback.bind(this);
     }
 }
