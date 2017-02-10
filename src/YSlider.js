@@ -183,6 +183,7 @@ export class YSlider {
     }
     setClickCallBack(callback) {
         this.onClick = callback.bind(this);
+        this._slider.style.cursor = 'pointer';
         this._slider.addEventListener('click', function(e) {
             e.stopPropagation();
             if (event.target !== this._slider) {
