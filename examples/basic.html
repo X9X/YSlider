@@ -1,57 +1,93 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>basic usage of YSlider</title>
-        <style media="screen">
-            *{
-                padding: 0;
-                margin: 0
-            }
-        </style>
-    </head>
-    <body>
-        <div class="slider">
 
-        </div>
-    </body>
-    <script src="../dist/YSlider.min.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        var slider = new YSlider('.slider',{
-            lazyLoad:true,
-            indicatorClass:'slider-indicator',
-            navClass:'slider-nav',
-            // showIndicator:false,
-            // showNav:false,
-            data : [
-                'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-                'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
-            ]
-        })
-        slider.setClickCallBack(function (current){
-            console.log(current);
-            window.open('http://www.baidu.com/','_blank')
-        })
-        slider.setChangeCallBack(function (current){
-            console.log(current);
-        })
-    </script>
+<head>
+    <meta charset="utf-8">
+    <title>Basic Example of YSlider</title>
+    <style media="screen">
+        * {
+            padding: 0;
+            margin: 0
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider">
+
+    </div>
+    <div class="slider2">
+
+    </div>
+</body>
+<script src="../dist/YSlider.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var slider = new YSlider('.slider', {
+        lazyLoad: true,
+        vertical: true,
+        indicatorClass: 'slider-indicator',
+        navClass: 'slider-nav',
+        // showIndicator:false,
+        // showNav:false,
+        data: [
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+        ]
+    })
+    var slider2 = new YSlider('.slider2', {
+        lazyLoad: true,
+        indicatorClass: 'slider-indicator',
+        navClass: 'slider-nav',
+        // showIndicator:false,
+        // showNav:false,
+        data: [
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+            'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
+        ]
+    })
+    slider.setClickCallBack(function(current) {
+        console.log(current);
+        window.open('http://www.baidu.com/', '_blank')
+    })
+    slider.setChangeCallBack(function(current) {
+        console.log(current);
+    })
+</script>
+
 </html>

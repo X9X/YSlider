@@ -26,7 +26,7 @@ export class YSlider {
         container.style.cssText = 'width:' + this._option.width + 'px;height:' + this._option.height + 'px;overflow:hidden;position:relative;';
         //initialize slider basic style
         let slider = document.createElement('div');
-        let sliderStyle = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;';
+        let sliderStyle = 'width:' + sliderWidth + 'px;height:' + sliderHeight + 'px;font-size:0;';
         if (this._option.animate) {
             sliderStyle += 'transition:all ' + this._option.speed + ' ease';
         }
