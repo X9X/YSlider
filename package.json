@@ -6,7 +6,7 @@
   "module": "src/YSlider.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.js -p",
     "dev": "webpack --config webpack.config.js --watch"
   },
   "repository": {
