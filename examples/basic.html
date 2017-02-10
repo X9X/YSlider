@@ -25,6 +25,7 @@
     var slider = new YSlider('.slider', {
         lazyLoad: true,
         vertical: true,
+        speed: '1s',
         indicatorClass: 'slider-indicator',
         navClass: 'slider-nav',
         // showIndicator:false,
@@ -58,6 +59,9 @@
         navClass: 'slider-nav',
         // showIndicator:false,
         // showNav:false,
+        animate:false,
+        hoverToStop : true,
+        slideInterval: 3,
         data: [
             'https://drscdn.500px.org/photo/145514195/m%3D2048/9ab727271cfe6e5d272817d90bd5437a',
             'http://cn.bing.com/az/hprichbg/rb/LophophorusImpejanus_ZH-CN10675050048_1920x1080.jpg',
