@@ -1,6 +1,6 @@
 # YSlider
 A lightweight yet configurable slider component, which supports lazyload , change and click event, slide direction etc.
-It should **NOT** be used in any prodocution environment.
+It should **NOT** be used in any prodocution  environment.
 ####Basic usage
 1. Include script to your page
 `    <script src="../dist/YSlider.min.js" charset="utf-8"></script>
