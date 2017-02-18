@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+}
+
+.viewport-screen {
+    position: relative;
+    /*width: 500px;
+    height: 500px;*/
+    /*background: red;*/
+    overflow: hidden;
+    display: block;
+    margin: 10px auto;
+}
+
+.viewport-screen .img-container {
+    position: absolute;
+    font-size: 0;
+    /*transition: left 1s ease;*/
+}
+
+.viewport-screen .img-container img {
+    /*width: 500px;
+    height: 500px;*/
+    display: inline-block;
+}
+
+.left-button {
+    position: absolute;
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+    border-image: initial;
+    border-width: 2px 2px 0px 0px;
+    top: 140.16px;
+    left: 30.7px;
+    transform: rotate(-135deg);
+    opacity: 1;
+}
+
+.right-button {
+    position: absolute;
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221);
+    border-image: initial;
+    border-width: 2px 2px 0px 0px;
+    top: 140.16px;
+    right: 30.7px;
+    transform: rotate(45deg);
+    opacity: 1;
+}
