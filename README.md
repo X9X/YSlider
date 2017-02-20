@@ -43,12 +43,20 @@ You can overwrite default configuration by passing second parameter. It should b
 - **indicatorClass** class added to indicator for customization, string required, **default** ''
 - **navClass** class added to nav for customization, string required, **default** ''
 
-#### Manipulation API
-- slideTo(index)
+#### Manipulation Methods
+- **slideTo(index)**
 slide to target index of sldes
-- slideBy(count)
+- **slideBy(count)**
 slide given count of sldes from current index
-- setClickCallBack(callback)
+- **setClickCallBack(callback)**
 set callback of click event
-- setChangeCallBack(callback)
+- **setChangeCallBack(callback)**
 set callback of slide change event
+
+#### Instance Properties
+- **currentSlide**
+index of current slide, default 0
+- **totalSlides**
+total num of all slides, default 0
+- **_option**
+config object, only for reading configuration.
